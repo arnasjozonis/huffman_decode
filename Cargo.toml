@@ -1,0 +1,10 @@
+[package]
+name = "huffman_decode"
+version = "0.1.0"
+authors = ["Arnas Jozonis <ajoz@danskebank.lt>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+bitbit = "0.2.0"
