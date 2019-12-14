@@ -6,8 +6,10 @@ use std::collections::HashMap;
 use std::iter::Iterator;
 use std::io::prelude::*;
 use std::env;
+use std::time::{SystemTime};
 
 fn main() {
+    let start_time = SystemTime::now();
     let args: Vec<String> = env::args().collect();
     if args.len() < 2 {
         println!("Please provide filename argument!");
@@ -123,6 +125,14 @@ fn main() {
         println!("printing not compressed bytes.");
         let value = br.read_byte().unwrap();
         bw.write_byte(value).unwrap();
+    }
+    match start_time.elapsed() {
+        Ok(elapsed) => {
+            println!("Dedompressed in: {} s", elapsed.as_secs());
+        }
+        Err(e) => {
+            println!("Error: {:?}", e);
+        }
     }
     buf_writer.flush().unwrap();
 }
