@@ -22,9 +22,12 @@ fn main() {
     let mut decode: HashMap<(u16, u16), u16> = HashMap::new();
     let word_len = br.read_byte().unwrap();
 
-    let mut decode_dict_len = br.read_byte().unwrap() as u16;
-    decode_dict_len = decode_dict_len << 8 | br.read_byte().unwrap() as u16;
-    let code_length_counter = 64 - (decode_dict_len as u64).leading_zeros();
+    let mut decode_dict_len = br.read_byte().unwrap() as u32;
+    decode_dict_len = decode_dict_len << 8 | br.read_byte().unwrap() as u32;
+    if decode_dict_len == 0 {
+        decode_dict_len = 65536;
+    }
+    let code_length_counter = 64 - ((decode_dict_len as u64).leading_zeros());
     let mut total_bits_from_dict: u32 = br.read_byte().unwrap() as u32;
     total_bits_from_dict = total_bits_from_dict << 8 | br.read_byte().unwrap() as u32;
     total_bits_from_dict = total_bits_from_dict << 8 | br.read_byte().unwrap() as u32;
